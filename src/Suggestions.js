@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Loader from "react-loader-spinner";
 
+let previousString = "";
 class Suggestions extends Component {
   constructor(props) {
     super(props);
@@ -9,21 +10,27 @@ class Suggestions extends Component {
       isLoaded: false,
     };
     console.log("####################");
-    console.log("####################");
     console.log(props);
     console.log("####################");
-    console.log("####################");
   }
 
-  componentDidMount() {
-    this.getSuggestions();
+  componentDidUpdate() {
+    console.log(this.props.searchText);
+    if (previousString != this.props.searchText) {
+      this.getSuggestions();
+    }
   }
 
-  async getSuggestions() {
-    console.log("Something Happening");
-    let searchString = document.getElementById("userInput").value;
-    // let searchString = "Ghost Rider";
-    // With error handling
+  co;
+
+  getSuggestions() {
+    console.log("Fetching Suggestions");
+    // resetting isLoaded to false
+    this.setState({ isLoaded: false });
+    console.log(this.props);
+    console.log(this.props.searchText);
+    let searchString = this.props.searchText;
+    previousString = searchString;
     let body = {
       userInput: searchString,
     };
@@ -35,10 +42,11 @@ class Suggestions extends Component {
       .then((json) => {
         this.setState({ isLoaded: true, items: json });
       });
+    // .then((pqr) => this.renderMovieList());
   }
 
   renderMovieList() {
-    console.log("Calling sample");
+    console.log("Rendering Movie List");
     var { isLoaded, items } = this.state;
     var item = items
       .slice(1)
@@ -121,22 +129,22 @@ class Suggestions extends Component {
         <span className={classList.join(" ")}>{movie_item}</span>
       );
       classList.pop();
-      movie_item = value["yID"];
-      classList.push("yID");
-      let src = [];
-      src.push("https://www.youtube.com/embed/" + movie_item);
-      movie_divs.push(
-        <iframe
-          width="100%"
-          className="mt-1 mb-2"
-          src={src}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      );
-      classList.pop();
+      // movie_item = value["yID"];
+      // classList.push("yID");
+      // let src = [];
+      // src.push("https://www.youtube.com/embed/" + movie_item);
+      // movie_divs.push(
+      //   <iframe
+      //     width="100%"
+      //     className="mt-1 mb-2"
+      //     src={src}
+      //     title="YouTube video player"
+      //     frameBorder="0"
+      //     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      //     allowFullScreen
+      //   ></iframe>
+      // );
+      // classList.pop();
       console.log(classList);
       // Looped fetching of data
       //   for (var b in value) {
@@ -161,14 +169,32 @@ class Suggestions extends Component {
         <div className="movie parent card col m-2">{movie_divs}</div>
       );
     }
-    // console.log(movie_div);
     return <div className="row">{movie_parent_div}</div>;
   }
 
   render() {
     var { isLoaded, items } = this.state;
+    console.log("calling render");
+    // console.log(state);
+    if (this.props.searchText === "") {
+      return (
+        <div className="text-center">
+          <Loader
+            type="Oval"
+            color="#00BFFF"
+            height={30}
+            width={30}
+            timeout={3000} //3 secs
+          />
+          <p>I'm gonna make him an offer he can't refuse.</p>
+          <p>
+            Loading the skeletons from servers, asking friends for movies ,
+            looking in pubs for songs.
+          </p>
+        </div>
+      );
+    }
     const sample = this.renderMovieList();
-    // console.log(sample.movie_div);
     if (!isLoaded) {
       return (
         <div className="text-center">
@@ -177,25 +203,23 @@ class Suggestions extends Component {
             color="#00BFFF"
             height={30}
             width={30}
-            timeout={1000} //3 secs
+            timeout={3000} //3 secs
           />
         </div>
       );
     } else {
-      //   console.log(items[0].tracks[0].album.external_urls.spotify);
       return (
         <div className="">
           <div className="results">
-            <div className="trackRec">
+            <div className="movieRec">
               {<div className="container">{sample}</div>}
             </div>
-            <div className="movieRec">
-              {items.slice(0, 1).map((item) => console.log(item))}
+            <div className="trackRec">
+              {/* {items.slice(0, 1).map((item) => console.log(item))} */}
             </div>
           </div>
         </div>
       );
-      //   return <div className="App">{items[0]}</div>;
     }
   }
 }
