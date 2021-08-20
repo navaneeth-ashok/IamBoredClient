@@ -3,15 +3,12 @@ import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./index.css";
-import App from "./App";
 import Input from "./Input";
-import Suggestions from "./Suggestions";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
     <Input />
-    {/* <Suggestions /> */}
   </React.StrictMode>,
 
   document.getElementById("root")

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Loader from "react-loader-spinner";
+import "./Suggestions.css";
 
 let previousString = "";
 class Suggestions extends Component {
@@ -17,6 +18,7 @@ class Suggestions extends Component {
   componentDidUpdate() {
     console.log(this.props.searchText);
     if (previousString != this.props.searchText) {
+      this.setState({ isLoaded: false });
       this.getSuggestions();
     }
   }
@@ -26,7 +28,6 @@ class Suggestions extends Component {
   getSuggestions() {
     console.log("Fetching Suggestions");
     // resetting isLoaded to false
-    this.setState({ isLoaded: false });
     console.log(this.props);
     console.log(this.props.searchText);
     let searchString = this.props.searchText;
@@ -45,6 +46,83 @@ class Suggestions extends Component {
     // .then((pqr) => this.renderMovieList());
   }
 
+  renderTracksList() {
+    console.log("Rendering Tracks List");
+    var { isLoaded, items } = this.state;
+    var p = items[0];
+    // console.log(items);
+    console.log(items[0]);
+    var track_parent_div = [];
+    for (var a in p) {
+      if (a == "tracks") {
+        // console.log(a);
+        // console.log(p[a]);
+        var trackObj = p[a];
+        for (var track in trackObj) {
+          var track_divs = [];
+          var classList = [];
+          var album = trackObj[track];
+          // track details are fetched now, just load to divs
+          console.log(album.name);
+          classList.push("track");
+          classList.push("mb-1 mt-1");
+
+          let track_item = album.name;
+          console.log(track_item);
+          classList.push("name");
+          track_divs.push(
+            <h2 className={classList.join(" ")}>{track_item}</h2>
+          );
+          classList.pop();
+
+          track_item = album.album.images[0].url;
+          classList.push("posterIMG");
+          track_divs.push(
+            <img className={classList.join(" ")} src={track_item}></img>
+          );
+          classList.pop();
+
+          track_item = album.album.name;
+          var item_link = album.album.external_urls.spotify;
+          classList.push("album__name");
+          track_divs.push(
+            <div className="text-center mt-2">
+              <a href={item_link} className={classList.join(" ")}>
+                {track_item}
+              </a>
+            </div>
+          );
+          classList.pop();
+
+          track_item = album.id;
+          var item_link = album.album.external_urls.spotify;
+          classList.push("track__preview");
+          let src = [];
+          src.push("https://open.spotify.com/embed/track/" + track_item);
+          track_divs.push(
+            <div>
+              <iframe
+                src={src}
+                width="98%"
+                height="80"
+                frameborder="0"
+                allowtransparency="true"
+                allow="encrypted-media"
+              ></iframe>
+            </div>
+          );
+          classList.pop();
+          track_parent_div.push(
+            <div className="col-sm-6 mb-3">
+              <div className="track parent card__custom row">{track_divs}</div>
+            </div>
+          );
+        }
+      }
+    }
+    return <div className="row">{track_parent_div}</div>;
+  }
+
   renderMovieList() {
     console.log("Rendering Movie List");
     var { isLoaded, items } = this.state;
@@ -55,12 +133,16 @@ class Suggestions extends Component {
     var p = item[0];
 
     var movie_parent_div = [];
+    var movie_div_id = [];
+    let i = 1;
     for (var a in p) {
       let value = p[a];
       var movie_divs = [];
       var classList = [];
       var movieDate = [];
       var ratings = [];
+      var movie_details = [];
+      var movie_preview = [];
       classList.push("movie");
       classList.push("mt-1 mb-1");
 
@@ -74,22 +156,21 @@ class Suggestions extends Component {
 
       movie_item = value["posterIMG"];
       classList.push("posterIMG");
-      movie_divs.push(
+      movie_preview.push(
         <img className={classList.join(" ")} src={movie_item}></img>
       );
       classList.pop();
-
       movie_item = value["genre"];
       classList.push("genre");
-      movie_divs.push(
-        <span className={classList.join(" ")}>{movie_item}</span>
+      movie_details.push(
+        <div className={classList.join(" ")}>{movie_item}</div>
       );
       classList.pop();
 
       movie_item = value["Actors"];
       classList.push("Actors");
-      movie_divs.push(
-        <span className={classList.join(" ")}>{movie_item}</span>
+      movie_details.push(
+        <div className={classList.join(" ")}>{movie_item}</div>
       );
       classList.pop();
 
@@ -97,56 +178,67 @@ class Suggestions extends Component {
       movie_item = value["release"];
       classList.push("col");
       classList.push("release");
-      movieDate.push(<span className={classList.join(" ")}>{movie_item}</span>);
+      movieDate.push(<div className={classList.join(" ")}>{movie_item}</div>);
       classList.pop();
       movie_item = value["runtime"];
       classList.push("runtime");
-      movieDate.push(<span className={classList.join(" ")}>{movie_item}</span>);
+      movieDate.push(<div className={classList.join(" ")}>{movie_item}</div>);
       classList.pop();
       classList.pop(); // pop - col
       classList.push("row");
-      movie_divs.push(<div className={classList.join(" ")}>{movieDate}</div>);
+      movie_details.push(
+        <div className={classList.join(" ")}>{movieDate}</div>
+      );
       classList.pop(); // pop-row
 
       // bundling ratings
       movie_item = value["metaScore"];
       classList.push("col");
       classList.push("metaScore");
-      ratings.push(<span className={classList.join(" ")}>{movie_item}</span>);
+      ratings.push(<div className={classList.join(" ")}>{movie_item}</div>);
       classList.pop();
       movie_item = value["imdbRating"];
       classList.push("imdbRating");
-      ratings.push(<span className={classList.join(" ")}>{movie_item}</span>);
+      ratings.push(<div className={classList.join(" ")}>{movie_item}</div>);
       classList.pop();
       classList.pop(); // pop - col
       classList.push("row");
-      movie_divs.push(<div className={classList.join(" ")}>{ratings}</div>);
+      movie_details.push(<div className={classList.join(" ")}>{ratings}</div>);
       classList.pop(); // pop-row
 
       movie_item = value["plot"];
       classList.push("plot");
-      movie_divs.push(
-        <span className={classList.join(" ")}>{movie_item}</span>
+      movie_details.push(
+        <div className={classList.join(" ")}>{movie_item}</div>
       );
       classList.pop();
-      // movie_item = value["yID"];
-      // classList.push("yID");
-      // let src = [];
-      // src.push("https://www.youtube.com/embed/" + movie_item);
-      // movie_divs.push(
-      //   <iframe
-      //     width="100%"
-      //     className="mt-1 mb-2"
-      //     src={src}
-      //     title="YouTube video player"
-      //     frameBorder="0"
-      //     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      //     allowFullScreen
-      //   ></iframe>
-      // );
-      // classList.pop();
+      movie_item = value["yID"];
+      classList.push("yID");
+      let src = [];
+      src.push("https://www.youtube.com/embed/" + movie_item);
+      movie_details.push(
+        <div>
+          <iframe
+            width="100%"
+            className="mt-1 mb-2"
+            src={src}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      );
+      classList.pop();
       console.log(classList);
+      movie_divs.push(
+        <div className="movie__preview col-sm-12">{movie_preview}</div>
+      );
+      movie_divs.push(
+        <div className="movie__details col-sm-12">{movie_details}</div>
+      );
       // Looped fetching of data
+      // Removed for manual control over the detail sequence
       //   for (var b in value) {
       //     var classList = [];
       //     classList.push("movie");
@@ -166,56 +258,64 @@ class Suggestions extends Component {
       //     console.log(classList);
       //   }
       movie_parent_div.push(
-        <div className="movie parent card col m-2">{movie_divs}</div>
+        <div className="col-sm-6 mb-3 card__master">
+          <div className="movie parent card__custom row">{movie_divs}</div>
+        </div>
       );
     }
     return <div className="row">{movie_parent_div}</div>;
   }
 
+  expandMovie(a) {
+    console.log(a);
+  }
+
   render() {
     var { isLoaded, items } = this.state;
     console.log("calling render");
-    // console.log(state);
     if (this.props.searchText === "") {
       return (
         <div className="text-center">
-          <Loader
-            type="Oval"
-            color="#00BFFF"
-            height={30}
-            width={30}
-            timeout={3000} //3 secs
-          />
-          <p>I'm gonna make him an offer he can't refuse.</p>
+          <p>
+            It looks crazy empty here, why don't you start filling it by
+            searching for something?
+          </p>
+          <p className="introColor">I'll make you an offer you can't refuse.</p>
+          <p className="">
+            You start typing on the field above, I'll ask friends for movies,
+            and will look in pubs for music.
+          </p>
+          <p className="introColor">Deal?</p>
+        </div>
+      );
+    }
+    const movies = this.renderMovieList();
+    const tracks = this.renderTracksList();
+    if (!isLoaded) {
+      return (
+        <div className="text-center">
           <p>
             Loading the skeletons from servers, asking friends for movies ,
             looking in pubs for songs.
           </p>
-        </div>
-      );
-    }
-    const sample = this.renderMovieList();
-    if (!isLoaded) {
-      return (
-        <div className="text-center">
           <Loader
             type="Oval"
-            color="#00BFFF"
-            height={30}
-            width={30}
-            timeout={3000} //3 secs
+            color="#c4a27e"
+            height={50}
+            width={50}
+            timeout={5000} //5 secs
           />
         </div>
       );
     } else {
       return (
-        <div className="">
-          <div className="results">
-            <div className="movieRec">
-              {<div className="container">{sample}</div>}
+        <div className="container">
+          <div className="row results">
+            <div className="col-lg movieRec">
+              {<div className="container">{movies}</div>}
             </div>
-            <div className="trackRec">
-              {/* {items.slice(0, 1).map((item) => console.log(item))} */}
+            <div className="col-lg trackRec">
+              {<div className="container">{tracks}</div>}
             </div>
           </div>
         </div>

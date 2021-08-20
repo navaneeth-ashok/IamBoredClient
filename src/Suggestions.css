@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Roboto+Condensed:wght@300&family=Roboto:wght@300&display=swap");
+
+body {
+  background-color: #121212;
+  color: #c0c0c0;
+  /* font-family: "Roboto", sans-serif; */
+}
+
+h2 {
+  font-size: 1.2em;
+  color: #ffc68a;
+}
+
+h1 {
+  color: #ffa631;
+  font-size: 4em;
+  cursor: pointer;
+  font-family: "Lato", sans-serif;
+}
+
+input {
+  margin-bottom: 40px;
+}
+
+.track img {
+  padding: 0;
+}
+
+img {
+  border-radius: 10px;
+  max-width: 100%;
+}
+
+/* .genre::before {
+  content: "Genre ";
+  color: #e2b07b;
+} */
+
+.form-control {
+  border: none;
+}
+
+.form-control:focus {
+  border-color: none;
+  box-shadow: none;
+}
+
+.form-control:active {
+  border-color: none;
+  box-shadow: none;
+}
+
+.genre {
+  text-align: center;
+  font-style: italic;
+}
+
+.Actors::before {
+  content: "Actors\a";
+  white-space: pre;
+  color: #e2b07b;
+}
+
+.release::before {
+  content: "Date\a";
+  white-space: pre;
+  color: #e2b07b;
+}
+
+.runtime::before {
+  content: "Runtime\a";
+  white-space: pre;
+  color: #e2b07b;
+}
+
+.metaScore::before {
+  content: "Metascore ";
+  color: #e2b07b;
+}
+
+.imdbRating::before {
+  content: "IMDB ";
+  color: #e2b07b;
+}
+.plot::before {
+  content: "Plot\a";
+  color: #e2b07b;
+  white-space: pre;
+}
+
+.movieRec .col-sm-4 {
+  transition: all 0.2s ease-in-out;
+}
+
+/* .movieRec .col-sm-4:hover {
+  width: 100%;
+  order: -1;
+}
+
+.movieRec .col-sm-4:hover .col-md {
+  width: 30%;
+} */
+
+.card__master,
+.card__custom {
+  min-height: 500px;
+}
+
+.card__custom {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #222222;
+  transition: all 0.2s linear;
+  height: 100%;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.card__custom:hover {
+  transform: scale(1.05, 1.05);
+}
+
+a.track {
+  text-decoration: none;
+  color: #c4a27e;
+}
+a.track:hover {
+  color: #f09b41;
+  cursor: pointer;
+}
+
+.movie__details {
+  display: none;
+}
+
+.movie:hover .movie__details {
+  display: block;
+}
+
+.movie__preview {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.album__name {
+  text-align: center !important;
+  margin-top: 10px;
+}
+
+.movieRec,
+.trackRec {
+  padding: 0;
+}
+
+.introColor {
+  color: bisque;
+}
