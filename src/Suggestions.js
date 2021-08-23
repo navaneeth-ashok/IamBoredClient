@@ -135,6 +135,18 @@ class Suggestions extends Component {
     var movie_parent_div = [];
     var movie_div_id = [];
     let i = 1;
+
+    console.log("##################");
+    console.log("##################");
+    if (items[1] != undefined) {
+      if (items[1].Similar.Results.length === 0) {
+        return "";
+      }
+    }
+
+    console.log("#################");
+    console.log("#################");
+    console.log("#################");
     for (var a in p) {
       let value = p[a];
       var movie_divs = [];
@@ -263,7 +275,16 @@ class Suggestions extends Component {
         </div>
       );
     }
-    return <div className="row">{movie_parent_div}</div>;
+
+    return (
+      <div className="col-lg movieRec">
+        {
+          <div className="container">
+            <div className="row">{movie_parent_div}</div>
+          </div>
+        }
+      </div>
+    );
   }
 
   expandMovie(a) {
@@ -311,9 +332,7 @@ class Suggestions extends Component {
       return (
         <div className="container">
           <div className="row results">
-            <div className="col-lg movieRec">
-              {<div className="container">{movies}</div>}
-            </div>
+            {movies}
             <div className="col-lg trackRec">
               {<div className="container">{tracks}</div>}
             </div>

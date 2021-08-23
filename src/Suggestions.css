@@ -3,7 +3,12 @@
 body {
   background-color: #121212;
   color: #c0c0c0;
+  height: 100%;
   /* font-family: "Roboto", sans-serif; */
+}
+
+html {
+  height: 100%;
 }
 
 h2 {
@@ -20,6 +25,14 @@ h1 {
 
 input {
   margin-bottom: 40px;
+  border-radius: 15px;
+  padding-right: 30px;
+  text-align: center;
+}
+
+input[type="text"] {
+  background-color: rgb(67, 78, 78) !important;
+  color: antiquewhite !important;
 }
 
 .track img {
@@ -153,5 +166,60 @@ a.track:hover {
 }
 
 .introColor {
-  color: bisque;
+  color: #c4a27e;
+}
+
+div.bmc-btn-container {
+  text-align: center;
+}
+
+a.bmc-btn {
+  height: 35px;
+  background-color: #ffa631 !important;
+  padding-right: 30px;
+}
+
+a.bmc-btn:hover {
+  color: saddlebrown;
+}
+
+footer {
+  height: 50px;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #909;
+}
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #909;
+  opacity: 1;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #909;
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #909;
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #909;
+}
+
+::placeholder {
+  /* Most modern browsers support this now. */
+  color: #909;
+}
+
+footer a {
+  color: burlywood;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: antiquewhite;
 }
