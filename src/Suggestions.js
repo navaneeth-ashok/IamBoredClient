@@ -305,10 +305,10 @@ class Suggestions extends Component {
             It looks crazy empty here, why don't you start filling it by
             searching for something?
           </p>
-          <p className="introColor">I'll make you an offer you can't refuse.</p>
+          <p className="introColor">I'll make you an offer you can't refuse</p>
           <p className="">
             You start typing on the field above, I'll ask friends for movies,
-            and will look in pubs for music.
+            and will look in pubs for music
           </p>
           <p className="introColor">Deal?</p>
         </div>
@@ -321,7 +321,7 @@ class Suggestions extends Component {
         <div className="text-center">
           <p>
             Loading the skeletons from servers, asking friends for movies ,
-            looking in pubs for songs.
+            looking in pubs for songs
           </p>
           <div className="m-3">
             <Loader
@@ -338,9 +338,7 @@ class Suggestions extends Component {
       return (
         <div className="container">
           <div className="text-center">
-            <p>
-              These are the tracks and movies you should probably check out next
-            </p>
+            <p>Based on your search, you might enjoy these</p>
           </div>
           <div className="row results">
             <div className="col-lg trackRec">
