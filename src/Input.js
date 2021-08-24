@@ -14,15 +14,19 @@ function Input() {
           I am Bored!
         </h1>
         <header className="input-header"></header>
-        <input
-          type="text"
-          id="userInput"
-          className="form-control w-25 ms-auto me-auto"
-          placeholder="Type a Movie or Track Name"
-          onChange={() =>
-            setSearchText(document.getElementById("userInput").value)
-          }
-        ></input>
+
+        <div className="">
+          <input
+            type="text"
+            id="userInput"
+            className="form-control  w-25 ms-auto me-auto"
+            placeholder="Type a Movie or Track Name"
+            onChange={() =>
+              setSearchText(document.getElementById("userInput").value)
+            }
+          ></input>
+          <span className="search"></span>
+        </div>
       </div>
       <Suggestions searchText={searchText} />
     </div>

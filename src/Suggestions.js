@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 import "./Suggestions.css";
 
@@ -9,6 +10,7 @@ class Suggestions extends Component {
     this.state = {
       items: [],
       isLoaded: false,
+      isActive: false,
     };
     // console.log(props);
   }
@@ -21,8 +23,9 @@ class Suggestions extends Component {
     }
   }
 
-  co;
-
+  handleToggle = () => {
+    this.setState({ isActive: !this.state.isActive });
+  };
   getSuggestions() {
     // console.log("Fetching Suggestions");
     // // resetting isLoaded to false
@@ -241,6 +244,13 @@ class Suggestions extends Component {
       );
       classList.pop();
       // console.log(classList);
+      // movie_preview.push(
+      //   <div className="text-center">
+      //     <Button className="expand-button" onClick="">
+      //       More
+      //     </Button>
+      //   </div>
+      // );
       movie_divs.push(
         <div className="movie__preview col-sm-12">{movie_preview}</div>
       );
@@ -327,11 +337,16 @@ class Suggestions extends Component {
     } else {
       return (
         <div className="container">
+          <div className="text-center">
+            <p>
+              These are the tracks and movies you should probably check out next
+            </p>
+          </div>
           <div className="row results">
-            {movies}
             <div className="col-lg trackRec">
               {<div className="container">{tracks}</div>}
             </div>
+            {movies}
           </div>
         </div>
       );
