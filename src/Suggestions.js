@@ -319,13 +319,15 @@ class Suggestions extends Component {
             Loading the skeletons from servers, asking friends for movies ,
             looking in pubs for songs.
           </p>
-          <Loader
-            type="Oval"
-            color="#c4a27e"
-            height={50}
-            width={50}
-            timeout={5000} //5 secs
-          />
+          <div className="m-3">
+            <Loader
+              type="Oval"
+              color="#c4a27e"
+              height={50}
+              width={50}
+              timeout={5000} //5 secs
+            />
+          </div>
         </div>
       );
     } else {

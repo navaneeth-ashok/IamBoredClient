@@ -6,7 +6,7 @@ import Footer from "./Footer";
 function Input() {
   const [searchText, setSearchText] = useState("");
   return (
-    <div className="">
+    <div className="container">
       <div className="input__form text-center">
         <h1
           onClick={() => window.location.reload()}
