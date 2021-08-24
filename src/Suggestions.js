@@ -35,7 +35,7 @@ class Suggestions extends Component {
     let body = {
       userInput: searchString,
     };
-    fetch("http://localhost:5000/fetchSuggestion", {
+    fetch("https://iam-bored-server.herokuapp.com/fetchSuggestion", {
       method: "POST",
       body: new URLSearchParams({ userInput: body.userInput }),
     })
