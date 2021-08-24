@@ -10,13 +10,11 @@ class Suggestions extends Component {
       items: [],
       isLoaded: false,
     };
-    console.log("####################");
-    console.log(props);
-    console.log("####################");
+    // console.log(props);
   }
 
   componentDidUpdate() {
-    console.log(this.props.searchText);
+    // console.log(this.props.searchText);
     if (previousString != this.props.searchText) {
       this.setState({ isLoaded: false });
       this.getSuggestions();
@@ -26,10 +24,10 @@ class Suggestions extends Component {
   co;
 
   getSuggestions() {
-    console.log("Fetching Suggestions");
-    // resetting isLoaded to false
-    console.log(this.props);
-    console.log(this.props.searchText);
+    // console.log("Fetching Suggestions");
+    // // resetting isLoaded to false
+    // console.log(this.props);
+    // console.log(this.props.searchText);
     let searchString = this.props.searchText;
     previousString = searchString;
     let body = {
@@ -47,11 +45,11 @@ class Suggestions extends Component {
   }
 
   renderTracksList() {
-    console.log("Rendering Tracks List");
+    // console.log("Rendering Tracks List");
     var { isLoaded, items } = this.state;
     var p = items[0];
     // console.log(items);
-    console.log(items[0]);
+    // console.log(items[0]);
     var track_parent_div = [];
     for (var a in p) {
       if (a == "tracks") {
@@ -63,12 +61,12 @@ class Suggestions extends Component {
           var classList = [];
           var album = trackObj[track];
           // track details are fetched now, just load to divs
-          console.log(album.name);
+          // console.log(album.name);
           classList.push("track");
           classList.push("mb-1 mt-1");
 
           let track_item = album.name;
-          console.log(track_item);
+          // console.log(track_item);
           classList.push("name");
           track_divs.push(
             <h2 className={classList.join(" ")}>{track_item}</h2>
@@ -124,7 +122,7 @@ class Suggestions extends Component {
   }
 
   renderMovieList() {
-    console.log("Rendering Movie List");
+    // console.log("Rendering Movie List");
     var { isLoaded, items } = this.state;
     var item = items
       .slice(1)
@@ -136,17 +134,11 @@ class Suggestions extends Component {
     var movie_div_id = [];
     let i = 1;
 
-    console.log("##################");
-    console.log("##################");
     if (items[1] != undefined) {
       if (items[1].Similar.Results.length === 0) {
         return "";
       }
     }
-
-    console.log("#################");
-    console.log("#################");
-    console.log("#################");
     for (var a in p) {
       let value = p[a];
       var movie_divs = [];
@@ -242,7 +234,7 @@ class Suggestions extends Component {
         </div>
       );
       classList.pop();
-      console.log(classList);
+      // console.log(classList);
       movie_divs.push(
         <div className="movie__preview col-sm-12">{movie_preview}</div>
       );
@@ -287,13 +279,9 @@ class Suggestions extends Component {
     );
   }
 
-  expandMovie(a) {
-    console.log(a);
-  }
-
   render() {
     var { isLoaded, items } = this.state;
-    console.log("calling render");
+    // console.log("calling render");
     if (this.props.searchText === "") {
       return (
         <div className="text-center">

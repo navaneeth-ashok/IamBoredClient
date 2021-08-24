@@ -1,7 +1,6 @@
 import "./Input.css";
 import Suggestions from "./Suggestions";
 import { useState } from "react";
-import Footer from "./Footer";
 
 function Input() {
   const [searchText, setSearchText] = useState("");
@@ -26,7 +25,6 @@ function Input() {
         ></input>
       </div>
       <Suggestions searchText={searchText} />
-      {/* <Footer /> */}
     </div>
   );
 }
