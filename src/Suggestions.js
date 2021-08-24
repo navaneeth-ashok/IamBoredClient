@@ -131,6 +131,20 @@ class Suggestions extends Component {
   renderMovieList() {
     // console.log("Rendering Movie List");
     var { items } = this.state;
+    console.log(items[1]);
+    if (items[1] !== undefined) {
+      if (items[1].Similar.Results.length === 0) {
+        return "";
+      }
+      if (
+        JSON.stringify(items[1]).includes(
+          "Rate limit exceeded, try again later"
+        )
+      ) {
+        return "";
+      }
+    }
+
     var item = items
       .slice(1)
       .map((item) => item.Similar.Results)
@@ -139,11 +153,6 @@ class Suggestions extends Component {
 
     var movie_parent_div = [];
 
-    if (items[1] !== undefined) {
-      if (items[1].Similar.Results.length === 0) {
-        return "";
-      }
-    }
     for (var a in p) {
       let value = p[a];
       var movie_divs = [];
