@@ -301,10 +301,6 @@ class Suggestions extends Component {
     if (this.props.searchText === "") {
       return (
         <div className="text-center">
-          <p>
-            It looks crazy empty here, why don't you start filling it by
-            searching for something?
-          </p>
           <p className="introColor">I'll make you an offer you can't refuse</p>
           <p className="">
             You start typing on the field above, I'll ask friends for movies,
