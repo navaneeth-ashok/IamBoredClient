@@ -15,7 +15,7 @@ class Suggestions extends Component {
 
   componentDidUpdate() {
     // console.log(this.props.searchText);
-    if (previousString != this.props.searchText) {
+    if (previousString !== this.props.searchText) {
       this.setState({ isLoaded: false });
       this.getSuggestions();
     }
@@ -46,13 +46,13 @@ class Suggestions extends Component {
 
   renderTracksList() {
     // console.log("Rendering Tracks List");
-    var { isLoaded, items } = this.state;
+    var { items } = this.state;
     var p = items[0];
     // console.log(items);
     // console.log(items[0]);
     var track_parent_div = [];
     for (var a in p) {
-      if (a == "tracks") {
+      if (a === "tracks") {
         // console.log(a);
         // console.log(p[a]);
         var trackObj = p[a];
@@ -76,7 +76,11 @@ class Suggestions extends Component {
           track_item = album.album.images[0].url;
           classList.push("posterIMG");
           track_divs.push(
-            <img className={classList.join(" ")} src={track_item}></img>
+            <img
+              className={classList.join(" ")}
+              src={track_item}
+              alt="poster of track"
+            ></img>
           );
           classList.pop();
 
@@ -93,7 +97,7 @@ class Suggestions extends Component {
           classList.pop();
 
           track_item = album.id;
-          var item_link = album.album.external_urls.spotify;
+          item_link = album.album.external_urls.spotify;
           classList.push("track__preview");
           let src = [];
           src.push("https://open.spotify.com/embed/track/" + track_item);
@@ -123,7 +127,7 @@ class Suggestions extends Component {
 
   renderMovieList() {
     // console.log("Rendering Movie List");
-    var { isLoaded, items } = this.state;
+    var { items } = this.state;
     var item = items
       .slice(1)
       .map((item) => item.Similar.Results)
@@ -131,10 +135,8 @@ class Suggestions extends Component {
     var p = item[0];
 
     var movie_parent_div = [];
-    var movie_div_id = [];
-    let i = 1;
 
-    if (items[1] != undefined) {
+    if (items[1] !== undefined) {
       if (items[1].Similar.Results.length === 0) {
         return "";
       }
@@ -161,7 +163,11 @@ class Suggestions extends Component {
       movie_item = value["posterIMG"];
       classList.push("posterIMG");
       movie_preview.push(
-        <img className={classList.join(" ")} src={movie_item}></img>
+        <img
+          className={classList.join(" ")}
+          src={movie_item}
+          alt="poster of movie"
+        ></img>
       );
       classList.pop();
       movie_item = value["genre"];
@@ -280,7 +286,7 @@ class Suggestions extends Component {
   }
 
   render() {
-    var { isLoaded, items } = this.state;
+    var { isLoaded } = this.state;
     // console.log("calling render");
     if (this.props.searchText === "") {
       return (
