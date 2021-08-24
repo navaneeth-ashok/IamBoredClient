@@ -107,7 +107,7 @@ class Suggestions extends Component {
                 src={src}
                 width="98%"
                 height="80"
-                frameborder="0"
+                frameBorder="0"
                 allowtransparency="true"
                 allow="encrypted-media"
               ></iframe>
