@@ -196,3 +196,19 @@ footer a {
 footer a:hover {
   color: antiquewhite;
 }
+
+input::-webkit-input-placeholder {
+  color: antiquewhite !important;
+}
+
+input::-moz-placeholder {
+  color: antiquewhite !important;
+}
+
+input::-ms-placeholder {
+  color: antiquewhite !important;
+}
+
+input::placeholder {
+  color: antiquewhite !important;
+}
