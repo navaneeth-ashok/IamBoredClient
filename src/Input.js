@@ -17,7 +17,7 @@ function Input() {
           I am Bored!
         </h1>
         <p>Feeling Bored?</p>
-        <p> Looking to discover some movies or tracks that you might like? </p>
+        <p>Looking to discover some movies or tracks that you might like?</p>
         <p>Type your favorite movie or song here</p>
         <header className="input-header"></header>
 
