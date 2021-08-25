@@ -44,7 +44,6 @@ class Suggestions extends Component {
       .then((json) => {
         this.setState({ isLoaded: true, items: json });
       });
-    // .then((pqr) => this.renderMovieList());
   }
 
   renderTracksList() {
@@ -117,8 +116,19 @@ class Suggestions extends Component {
             </div>
           );
           classList.pop();
+          let col_num = "col-sm-6";
+          if (items[1] !== undefined) {
+            if (
+              items[1].Similar.Results.length === 0 ||
+              JSON.stringify(items[1]).includes(
+                "Rate limit exceeded, try again later"
+              )
+            ) {
+              col_num = "col-sm-4";
+            }
+          }
           track_parent_div.push(
-            <div className="col-sm-6 mb-3">
+            <div className={`${col_num} mb-3`}>
               <div className="track parent card__custom row">{track_divs}</div>
             </div>
           );
@@ -131,7 +141,6 @@ class Suggestions extends Component {
   renderMovieList() {
     // console.log("Rendering Movie List");
     var { items } = this.state;
-    console.log(items[1]);
     if (items[1] !== undefined) {
       if (items[1].Similar.Results.length === 0) {
         return "";

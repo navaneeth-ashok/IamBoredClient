@@ -1,9 +1,12 @@
 import "./Input.css";
 import Suggestions from "./Suggestions";
 import { useState } from "react";
+import { useDebounce } from "use-debounce";
 
 function Input() {
   const [searchText, setSearchText] = useState("");
+  const [value] = useDebounce(searchText, 2000);
+
   return (
     <div className="container">
       <div className="input__form text-center">
@@ -24,14 +27,12 @@ function Input() {
             id="userInput"
             className="form-control  w-25 ms-auto me-auto"
             placeholder="Type a Movie or Track Name"
-            onChange={() =>
-              setSearchText(document.getElementById("userInput").value)
-            }
+            onChange={(e) => setSearchText(e.target.value)}
           ></input>
           <span className="search"></span>
         </div>
       </div>
-      <Suggestions searchText={searchText} />
+      <Suggestions searchText={value} />
     </div>
   );
 }
