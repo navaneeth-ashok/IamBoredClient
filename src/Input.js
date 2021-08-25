@@ -23,6 +23,7 @@ function Input() {
 
         <div className="">
           <input
+            autoComplete="off"
             type="text"
             id="userInput"
             className="form-control  w-25 ms-auto me-auto"
