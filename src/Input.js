@@ -7,6 +7,10 @@ function Input() {
   const [searchText, setSearchText] = useState("");
   const [value] = useDebounce(searchText, 2000);
 
+  function handleChange(newValue) {
+    setSearchText(newValue);
+  }
+
   return (
     <div className="container">
       <div className="input__form text-center">
@@ -33,7 +37,7 @@ function Input() {
           <span className="search"></span>
         </div>
       </div>
-      <Suggestions searchText={value} />
+      <Suggestions searchText={value} onChange={handleChange} />
     </div>
   );
 }

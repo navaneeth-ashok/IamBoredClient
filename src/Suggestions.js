@@ -61,6 +61,7 @@ class Suggestions extends Component {
               ) ||
               this.state.movieResults === false
             ) {
+              this.state.movieResults = false;
               col_num = "col-sm-4";
             }
           }
@@ -82,6 +83,7 @@ class Suggestions extends Component {
 
   renderMovieList() {
     var { items } = this.state;
+
     if (items[1] !== undefined) {
       if (items[1].Similar.Results.length === 0) {
         return "";
@@ -94,8 +96,9 @@ class Suggestions extends Component {
         return "";
       }
     }
+
     var item = items
-      .slice(1)
+      .slice(1, 2)
       .map((item) => item.Similar.Results)
       .map((results) => results);
     var p = item[0];
@@ -128,6 +131,37 @@ class Suggestions extends Component {
     return <div className="row">{movie_parent_div}</div>;
   }
 
+  handleChange(value) {
+    this.props.onChange(value);
+  }
+
+  fetchSearchSuggestions() {
+    var { items } = this.state;
+    let sugButtons = [];
+    if (items[2] !== undefined) {
+      for (var a in items[2]["Search"]) {
+        console.log(items[2]["Search"][a]);
+        sugButtons.push(
+          <button
+            type="button"
+            className="suggestion__buttons"
+            value={items[2]["Search"][a]}
+            onClick={(e) => {
+              document.getElementById("userInput").value = e.target.value;
+              this.handleChange(e.target.value);
+              this.setState({ trackResults: true });
+              this.setState({ movieResults: true });
+              this.setState({ buttonState: 0 });
+            }}
+          >
+            {items[2]["Search"][a]}
+          </button>
+        );
+      }
+    }
+    return sugButtons;
+  }
+
   render() {
     var { isLoaded } = this.state;
     if (this.props.searchText === "") {
@@ -144,6 +178,7 @@ class Suggestions extends Component {
     }
     const movies = this.renderMovieList();
     const tracks = this.renderTracksList();
+    const searchSuggestions = this.fetchSearchSuggestions();
     if (!isLoaded) {
       return (
         <div className="text-center">
@@ -219,7 +254,17 @@ class Suggestions extends Component {
               <div className="col-lg movie-rec">
                 {<div className="container">{movies}</div>}
               </div>
-            ) : null}
+            ) : (
+              <div className="container text-center mb-5">
+                <p>I'm really sorry</p>
+                <p>I could not find any movies for that search</p>
+                <p>
+                  Would you like to search again with any of the following
+                  titles?
+                </p>
+                {searchSuggestions}
+              </div>
+            )}
           </div>
         </div>
       );

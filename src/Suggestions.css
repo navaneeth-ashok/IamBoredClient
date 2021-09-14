@@ -253,3 +253,7 @@ button img:hover {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.suggestion__buttons:hover {
+  color: #fda839;
+}
