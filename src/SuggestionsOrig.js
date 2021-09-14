@@ -24,9 +24,6 @@ class Suggestions extends Component {
     }
   }
 
-  handleToggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  };
   getSuggestions() {
     let searchString = this.props.searchText;
     previousString = searchString;

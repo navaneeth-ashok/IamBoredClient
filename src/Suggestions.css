@@ -165,7 +165,9 @@ a.bmc-btn:hover {
 }
 
 footer {
-  height: 50px;
+  min-height: 50px;
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
 
 footer a {
