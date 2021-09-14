@@ -34,7 +34,7 @@ input[type="text"] {
   background-color: rgb(67, 78, 78) !important;
   color: antiquewhite !important;
   min-width: 270px;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
 }
 
 .track img {

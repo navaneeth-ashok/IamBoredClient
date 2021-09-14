@@ -64,8 +64,6 @@ function MovieSuggestion(props) {
 }
 
 function TrackSuggestion(props) {
-  const [expanded, expandCard] = useState("");
-
   return (
     <div className={`${props.col} mb-3`}>
       <div className="track parent card__custom row">
