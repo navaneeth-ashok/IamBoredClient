@@ -231,3 +231,13 @@ input::placeholder {
 .form-control {
   display: inline-block;
 }
+
+button {
+  border: none;
+  background: none;
+  color: #c4a27e;
+}
+
+button:focus {
+  color: #f09b41;
+}
