@@ -131,10 +131,6 @@ class Suggestions extends Component {
     return <div className="row">{movie_parent_div}</div>;
   }
 
-  handleChange(value) {
-    this.props.onChange(value);
-  }
-
   fetchSearchSuggestions() {
     var { items } = this.state;
     let sugButtons = [];
@@ -148,7 +144,7 @@ class Suggestions extends Component {
             value={items[2]["Search"][a]}
             onClick={(e) => {
               document.getElementById("userInput").value = e.target.value;
-              this.handleChange(e.target.value);
+              this.props.onChange(e.target.value);
               this.setState({ trackResults: true });
               this.setState({ movieResults: true });
               this.setState({ buttonState: 0 });
@@ -256,7 +252,6 @@ class Suggestions extends Component {
               </div>
             ) : (
               <div className="container text-center mb-5">
-                <p>I'm really sorry</p>
                 <p>I could not find any movies for that search</p>
                 <p>
                   Would you like to search again with any of the following
