@@ -46,11 +46,6 @@ img {
   max-width: 100%;
 }
 
-/* .genre::before {
-  content: "Genre ";
-  color: #e2b07b;
-} */
-
 .form-control {
   border: none;
 }
@@ -70,7 +65,7 @@ img {
   font-style: italic;
 }
 
-.Actors::before {
+.actors::before {
   content: "Actors\a";
   white-space: pre;
   color: #e2b07b;
@@ -88,12 +83,12 @@ img {
   color: #e2b07b;
 }
 
-.metaScore::before {
+.meta-score::before {
   content: "Metascore ";
   color: #e2b07b;
 }
 
-.imdbRating::before {
+.imdb-rating::before {
   content: "IMDB ";
   color: #e2b07b;
 }
@@ -103,22 +98,13 @@ img {
   white-space: pre;
 }
 
-.movieRec .col-sm-4 {
+.movie-rec .col-sm-4 {
   transition: all 0.2s ease-in-out;
 }
 
-/* .movieRec .col-sm-4:hover {
-  width: 100%;
-  order: -1;
-}
-
-.movieRec .col-sm-4:hover .col-md {
-  width: 30%;
-} */
-
 .card__master,
 .card__custom {
-  min-height: 500px;
+  min-height: 540px;
 }
 
 .card__custom {
@@ -144,14 +130,6 @@ a.track:hover {
   cursor: pointer;
 }
 
-.movie__details {
-  display: none;
-}
-
-.movie:hover .movie__details {
-  display: block;
-}
-
 .movie__preview {
   padding-left: 1px;
   padding-right: 1px;
@@ -162,12 +140,12 @@ a.track:hover {
   margin-top: 10px;
 }
 
-.movieRec,
-.trackRec {
+.movie-rec,
+.track-rec {
   padding: 0;
 }
 
-.introColor {
+.intro-color {
   color: #c4a27e;
 }
 
@@ -182,7 +160,8 @@ a.bmc-btn {
 }
 
 a.bmc-btn:hover {
-  color: saddlebrown;
+  color: black;
+  background-color: #fd6f1d !important;
 }
 
 footer {
@@ -224,8 +203,6 @@ input::placeholder {
   margin-left: -30px;
   filter: invert(18%) sepia(0%) saturate(1985%) hue-rotate(154deg)
     brightness(96%) contrast(91%);
-  /* top: 5px;
-  left: -30px; */
 }
 
 .form-control {
@@ -238,6 +215,41 @@ button {
   color: #c4a27e;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 button:focus {
   color: #f09b41;
+}
+
+.button__active {
+  color: #f09b41;
+}
+
+button img {
+  filter: invert(79%) sepia(9%) saturate(7038%) hue-rotate(330deg)
+    brightness(99%) contrast(89%);
+  transition: all 0.2s linear;
+}
+
+button img:hover {
+  transform: translateY(5px);
+  cursor: pointer;
+  /* transform: scale(1.1); */
+}
+
+.filter-buttons button {
+  font-size: 1.1em;
+  margin: 0 10px;
+}
+
+.filter-buttons button:hover {
+  cursor: pointer;
+  color: #fda839;
+}
+
+.container {
+  padding-left: 10px;
+  padding-right: 10px;
 }

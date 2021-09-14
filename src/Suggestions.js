@@ -13,6 +13,7 @@ class Suggestions extends Component {
       isActive: false,
       movieResults: true,
       trackResults: true,
+      buttonState: 0,
     };
   }
 
@@ -132,12 +133,12 @@ class Suggestions extends Component {
     if (this.props.searchText === "") {
       return (
         <div className="text-center">
-          <p className="introColor">I'll make you an offer you can't refuse</p>
+          <p className="intro-color">I'll make you an offer you can't refuse</p>
           <p className="">
             You start typing on the field above, I'll ask friends for movies,
             and will look in pubs for music
           </p>
-          <p className="introColor">Deal?</p>
+          <p className="intro-color">Deal?</p>
         </div>
       );
     }
@@ -166,42 +167,56 @@ class Suggestions extends Component {
         <div className="container">
           <div className="text-center">
             <p>Based on your search, you might enjoy these</p>
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({ trackResults: true });
-                this.setState({ movieResults: true });
-              }}
-            >
-              All
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({ trackResults: true });
-                this.setState({ movieResults: false });
-              }}
-            >
-              Tracks
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({ trackResults: false });
-                this.setState({ movieResults: true });
-              }}
-            >
-              Movies
-            </button>
+            <div className="filter-buttons mb-3">
+              <button
+                type="button"
+                onClick={() => {
+                  this.setState({ trackResults: true });
+                  this.setState({ movieResults: true });
+                  this.setState({ buttonState: 0 });
+                }}
+                className={
+                  this.state.buttonState == 0 ? "button__active" : null
+                }
+              >
+                All
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  this.setState({ trackResults: true });
+                  this.setState({ movieResults: false });
+                  this.setState({ buttonState: 1 });
+                }}
+                className={
+                  this.state.buttonState == 1 ? "button__active" : null
+                }
+              >
+                Tracks
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  this.setState({ trackResults: false });
+                  this.setState({ movieResults: true });
+                  this.setState({ buttonState: 2 });
+                }}
+                className={
+                  this.state.buttonState == 2 ? "button__active" : null
+                }
+              >
+                Movies
+              </button>
+            </div>
           </div>
           <div className="row results">
             {this.state.trackResults ? (
-              <div className="col-lg trackRec">
+              <div className="col-lg track-rec">
                 {<div className="container">{tracks}</div>}
               </div>
             ) : null}
             {this.state.movieResults ? (
-              <div className="col-lg movieRec">
+              <div className="col-lg movie-rec">
                 {<div className="container">{movies}</div>}
               </div>
             ) : null}
