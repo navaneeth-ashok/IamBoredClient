@@ -1,5 +1,5 @@
 import "./Input.css";
-import Suggestions from "./SuggestionsNew";
+import Suggestions from "./Suggestions";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
 
