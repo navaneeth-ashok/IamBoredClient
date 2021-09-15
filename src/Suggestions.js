@@ -269,6 +269,14 @@ function Suggestions(props) {
               ) : null,
             ]
           )}
+          {movieList == 1 ? (
+            <div className="container text-center mb-5">
+              <p>
+                Would you like to search again with any of the following titles?
+              </p>
+              {searchSuggestions}
+            </div>
+          ) : null}
         </div>
       </div>
     );

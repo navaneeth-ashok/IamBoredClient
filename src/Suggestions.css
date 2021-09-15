@@ -24,7 +24,7 @@ h1 {
 }
 
 input {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   border-radius: 15px;
   padding-right: 30px;
   text-align: center;
@@ -161,7 +161,7 @@ a.bmc-btn {
 
 a.bmc-btn:hover {
   color: black;
-  background-color: #fd6f1d !important;
+  background-color: #fa8745 !important;
 }
 
 footer {

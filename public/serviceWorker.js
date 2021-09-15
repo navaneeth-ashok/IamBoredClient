@@ -1,4 +1,4 @@
-let CACHE_NAME = "iam-bored-cache-v1";
+let CACHE_NAME = "iam-bored-cache-v2";
 const urlsToCache = ["/", "/index.html"];
 self.addEventListener("install", function (event) {
   // Perform install steps
