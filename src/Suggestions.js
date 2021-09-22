@@ -14,7 +14,6 @@ function Suggestions(props) {
     trackResults: true,
     buttonState: 0,
   });
-  const [movieNumber, setMovieCount] = useState(1);
   var movieList = 1;
 
   useEffect(() => {
@@ -175,7 +174,6 @@ function Suggestions(props) {
 
   var { isLoaded } = receivedData;
   var { movieResults, trackResults, buttonState } = filterSuggestion;
-  var { movieCount } = movieNumber;
 
   if (!isLoaded) {
     return (
@@ -213,7 +211,7 @@ function Suggestions(props) {
                   buttonState: 0,
                 });
               }}
-              className={buttonState == 0 ? "button__active" : null}
+              className={buttonState === 0 ? "button__active" : null}
             >
               All
             </button>
@@ -226,7 +224,7 @@ function Suggestions(props) {
                   buttonState: 1,
                 });
               }}
-              className={buttonState == 1 ? "button__active" : null}
+              className={buttonState === 1 ? "button__active" : null}
             >
               Tracks
             </button>
@@ -239,7 +237,7 @@ function Suggestions(props) {
                   buttonState: 2,
                 });
               }}
-              className={buttonState == 2 ? "button__active" : null}
+              className={buttonState === 2 ? "button__active" : null}
             >
               Movies
             </button>
@@ -251,13 +249,13 @@ function Suggestions(props) {
               {<div className="container">{tracks}</div>}
             </div>
           ) : null}
-          {movieResults && movieList == 1 ? (
+          {movieResults && movieList === 1 ? (
             <div className="col-lg movie-rec">
               {<div className="container">{movies}</div>}
             </div>
           ) : (
             [
-              movieList == 0 ? (
+              movieList === 0 ? (
                 <div className="container text-center mb-5">
                   <p>I could not find any movies for that search</p>
                   <p>
@@ -269,7 +267,7 @@ function Suggestions(props) {
               ) : null,
             ]
           )}
-          {movieList == 1 ? (
+          {movieList === 1 ? (
             <div className="container text-center mb-5">
               <p>
                 Would you like to search again with any of the following titles?
