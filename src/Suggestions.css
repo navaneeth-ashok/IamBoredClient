@@ -168,6 +168,8 @@ footer {
   min-height: 50px;
   padding-top: 10px;
   padding-bottom: 5px;
+  position: sticky;
+  top: 100vh;
 }
 
 footer a {

@@ -5,7 +5,7 @@ import { useDebounce } from "use-debounce";
 
 function Input() {
   const [searchText, setSearchText] = useState("");
-  const [value] = useDebounce(searchText, 2000);
+  const [value] = useDebounce(searchText, 1500);
 
   function handleChange(newValue) {
     setSearchText(newValue);
@@ -14,12 +14,9 @@ function Input() {
   return (
     <div className="container">
       <div className="input__form text-center">
-        <h1
-          onClick={() => window.location.reload()}
-          className="text-center fw-bold mt-3"
-        >
-          I am Bored!
-        </h1>
+        <button type="button" onClick={() => window.location.reload()}>
+          <h1 className="text-center fw-bold mt-3">I am Bored!</h1>
+        </button>
         <p>Feeling Bored?</p>
         <p>Looking to discover some movies or tracks that you might like?</p>
         <p>Type your favorite movie or song here</p>
@@ -33,6 +30,11 @@ function Input() {
             className="form-control  w-25 ms-auto me-auto"
             placeholder="Type a Movie or Track Name"
             onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setSearchText(e.target.value);
+              }
+            }}
           ></input>
           <span className="search"></span>
         </div>

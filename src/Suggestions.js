@@ -14,7 +14,9 @@ function Suggestions(props) {
     trackResults: true,
     buttonState: 0,
   });
-  var movieList = 1;
+  let movieList = 1;
+  let trackList = 1;
+  let suggestionList = 1;
 
   useEffect(() => {
     if (previousString !== props.searchText) {
@@ -29,7 +31,7 @@ function Suggestions(props) {
     let body = {
       userInput: searchString,
     };
-    fetch("https://iam-bored-server.herokuapp.com/fetchSuggestion", {
+    fetch("https://iam-bored-server.herokuapp.com/", {
       method: "POST",
       body: new URLSearchParams({ userInput: body.userInput }),
     })
@@ -43,46 +45,59 @@ function Suggestions(props) {
   }
 
   function renderTracksList() {
-    var { items } = receivedData;
-    var { movieResults } = filterSuggestion;
-    var p = items[0];
-    var track_parent_div = [];
-    for (var a in p) {
-      if (a === "tracks") {
-        var trackObj = p[a];
-        for (var track in trackObj) {
-          var album = trackObj[track];
-          let col_num = "col-sm-6";
-          if (items[1] !== undefined) {
-            if (
-              items[1].Similar.Results.length === 0 ||
-              JSON.stringify(items[1]).includes(
-                "Rate limit exceeded, try again later"
-              ) ||
-              movieResults === false
-            ) {
-              col_num = "col-sm-4";
+    let { items } = receivedData;
+    let { movieResults } = filterSuggestion;
+    let p = items[0];
+    let track_parent_div = [];
+
+    if (p.tracks === null) {
+      trackList = 0;
+      return (
+        <div className="row">
+          <div className="col text-center">
+            I could not find any tracks for that search
+          </div>
+        </div>
+      );
+    } else {
+      trackList = 1;
+      for (let a in p) {
+        if (a === "tracks") {
+          let trackObj = p[a];
+          for (let track in trackObj) {
+            let album = trackObj[track];
+            let col_num = "col-sm-6";
+            if (items[1] !== undefined) {
+              if (
+                items[1].Similar.Results.length === 0 ||
+                JSON.stringify(items[1]).includes(
+                  "Rate limit exceeded, try again later"
+                ) ||
+                movieResults === false
+              ) {
+                col_num = "col-sm-4";
+              }
             }
+            track_parent_div.push(
+              <TrackSuggestion
+                Name={album.name}
+                ImgSrc={album.album.images[0].url}
+                AlbumName={album.album.name}
+                AlbumLink={album.album.external_urls.spotify}
+                TrackID={album.id}
+                col={col_num}
+              />
+            );
           }
-          track_parent_div.push(
-            <TrackSuggestion
-              Name={album.name}
-              ImgSrc={album.album.images[0].url}
-              AlbumName={album.album.name}
-              AlbumLink={album.album.external_urls.spotify}
-              TrackID={album.id}
-              col={col_num}
-            />
-          );
         }
       }
+      return <div className="row">{track_parent_div}</div>;
     }
-    return <div className="row">{track_parent_div}</div>;
   }
 
   function renderMovieList() {
-    var { items } = receivedData;
-    var { trackResults } = filterSuggestion;
+    let { items } = receivedData;
+    let { trackResults } = filterSuggestion;
     if (items[1] !== undefined) {
       if (items[1].Similar.Results.length === 0) {
         movieList = 0;
@@ -97,19 +112,19 @@ function Suggestions(props) {
       }
     }
 
-    var item = items
+    let item = items
       .slice(1, 2)
       .map((item) => item.Similar.Results)
       .map((results) => results);
-    var p = item[0];
-    var movie_parent_div = [];
+    let p = item[0];
+    let movie_parent_div = [];
     let col_num = "col-sm-6";
     if (items[0] !== undefined) {
       if (trackResults === false) {
         col_num = "col-sm-4";
       }
     }
-    for (var a in p) {
+    for (let a in p) {
       let value = p[a];
       movie_parent_div.push(
         <MovieSuggestion
@@ -121,7 +136,6 @@ function Suggestions(props) {
           Runtime={value["runtime"]}
           MetaScore={value["metaScore"]}
           IMDBRating={value["imdbRating"]}
-          IMDBRating={value["runtime"]}
           Plot={value["plot"]}
           YTSrc={value["yID"]}
           col={col_num}
@@ -133,9 +147,14 @@ function Suggestions(props) {
 
   function fetchSearchSuggestions() {
     let sugButtons = [];
-    var { items } = receivedData;
+    let { items } = receivedData;
+    if (items[2].Response === "False") {
+      suggestionList = 0;
+      return null;
+    }
     if (items[2] !== undefined) {
-      for (var a in items[2]["Search"]) {
+      suggestionList = 1;
+      for (let a in items[2]["Search"]) {
         sugButtons.push(
           <button
             type="button"
@@ -172,8 +191,8 @@ function Suggestions(props) {
     );
   }
 
-  var { isLoaded } = receivedData;
-  var { movieResults, trackResults, buttonState } = filterSuggestion;
+  let { isLoaded } = receivedData;
+  let { movieResults, trackResults, buttonState } = filterSuggestion;
 
   if (!isLoaded) {
     return (
@@ -244,37 +263,44 @@ function Suggestions(props) {
           </div>
         </div>
         <div className="row results">
-          {trackResults ? (
+          {trackResults && trackList === 1 ? (
             <div className="col-lg track-rec">
               {<div className="container">{tracks}</div>}
             </div>
-          ) : null}
+          ) : (
+            [
+              trackResults && trackList === 0 ? (
+                <div className="container text-center mb-1">
+                  <p>I could not find any tracks for that search</p>
+                </div>
+              ) : null,
+            ]
+          )}
           {movieResults && movieList === 1 ? (
             <div className="col-lg movie-rec">
               {<div className="container">{movies}</div>}
             </div>
           ) : (
             [
-              movieList === 0 ? (
-                <div className="container text-center mb-5">
+              movieResults && movieList === 0 ? (
+                <div className="container text-center mb-1">
                   <p>I could not find any movies for that search</p>
-                  <p>
-                    Would you like to search again with any of the following
-                    titles?
-                  </p>
-                  {searchSuggestions}
                 </div>
               ) : null,
             ]
           )}
-          {movieList === 1 ? (
-            <div className="container text-center mb-5">
+          {suggestionList === 1 ? (
+            <div className="container text-center mt-5 mb-5">
               <p>
                 Would you like to search again with any of the following titles?
               </p>
               {searchSuggestions}
             </div>
-          ) : null}
+          ) : (
+            <div className="container text-center mt-5 mb-5">
+              <p>Would you like to search again with some other title?</p>
+            </div>
+          )}
         </div>
       </div>
     );
