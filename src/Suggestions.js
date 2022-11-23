@@ -31,7 +31,7 @@ function Suggestions(props) {
     let body = {
       userInput: searchString,
     };
-    fetch("https://iam-bored-server.herokuapp.com/", {
+    fetch("https://back-end-dot-iamboredapp.uc.r.appspot.com/fetchSuggestion", {
       method: "POST",
       body: new URLSearchParams({ userInput: body.userInput }),
     })
