@@ -17,6 +17,7 @@ function Suggestions(props) {
   let movieList = 1;
   let trackList = 1;
   let suggestionList = 1;
+  let serviceDown = false;
 
   useEffect(() => {
     if (previousString !== props.searchText) {
@@ -69,9 +70,12 @@ function Suggestions(props) {
             let col_num = "col-sm-6";
             if (items[1] !== undefined) {
               if (
-                items[1].Similar.Results.length === 0 ||
+                items[1]?.Similar?.Results?.length === 0 ||
                 JSON.stringify(items[1]).includes(
                   "Rate limit exceeded, try again later"
+                ) ||
+                JSON.stringify(items[1]).includes(
+                  "MovieSuggestion API is down"
                 ) ||
                 movieResults === false
               ) {
@@ -99,15 +103,18 @@ function Suggestions(props) {
     let { items } = receivedData;
     let { trackResults } = filterSuggestion;
     if (items[1] !== undefined) {
-      if (items[1].Similar.Results.length === 0) {
+      if (items[1]?.Similar?.Results?.length === 0) {
         movieList = 0;
         return "";
       }
       if (
         JSON.stringify(items[1]).includes(
           "Rate limit exceeded, try again later"
-        )
+        ) ||
+        JSON.stringify(items[1]).includes("MovieSuggestion API is down")
       ) {
+        serviceDown = true;
+        movieList = 0;
         return "";
       }
     }
@@ -284,7 +291,14 @@ function Suggestions(props) {
             [
               movieResults && movieList === 0 ? (
                 <div className="container text-center mb-1">
-                  <p>I could not find any movies for that search</p>
+                  {serviceDown == true ? (
+                    <p>
+                      Movie suggestion service is down, please try again later
+                    </p>
+                  ) : (
+                    <p>Could not find any movies for that search</p>
+                  )}
+                  <p></p>
                 </div>
               ) : null,
             ]
